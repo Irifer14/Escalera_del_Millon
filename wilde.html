@@ -126,9 +126,8 @@ function buildMockup(){
           <div style="margin-top:12px; font-size:17px; font-weight:500; color:#C9B3E8;">
             Clientes ${CATS} · Sorteo ${SORTEO} de 4 · puntos jugados en slots en ${SALA} desde el ${FECHA_INICIO} hasta el ${CIERRE} · se actualiza automáticamente
           </div>
-          <div style="display:inline-block; margin-top:10px; background:linear-gradient(90deg,#6A2CA8,#8B3FD0); border:1px solid rgba(247,193,92,0.7); box-shadow:0 6px 18px rgba(0,0,0,0.4); border-radius:9px; padding:8px 20px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:18px; color:#fff; letter-spacing:.3px;">Si el ganador no está presente en sala al cierre, el premio se acumula para la próxima semana</div>
         </div>
-        <div style="width:560px; flex-shrink:0; display:flex; align-items:center; justify-content:center; gap:14px;">
+        <div style="width:560px; flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;"><div style="display:flex; align-items:center; justify-content:center; gap:14px;">
           <div style="background:linear-gradient(160deg, rgba(35,10,62,0.85), rgba(20,4,40,0.6)); border:1px solid rgba(247,193,92,0.55); box-shadow:0 8px 22px rgba(0,0,0,0.4); border-radius:18px; padding:13px 24px; min-width:196px; text-align:center;">
             <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px; letter-spacing:2px; color:#FFC98A;">EN JUEGO</div>
             <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:32px; margin-top:2px; background:linear-gradient(180deg,#FFF6D6 0%, #F7C15C 44%, #C9861A 60%, #F7C15C 80%, #FFE9B8 100%); -webkit-background-clip:text; background-clip:text; color:transparent;">${PREMIO_TOTAL}</div>
@@ -137,6 +136,8 @@ function buildMockup(){
             <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px; letter-spacing:2px; color:#CBA9F0;">FINALIZA</div>
             <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:32px; margin-top:2px; color:#FFFFFF;">${DIAS_RESTANTES}</div>
           </div>
+        </div>
+        <div style="width:100%; text-align:center; background:linear-gradient(90deg,#6A2CA8,#8B3FD0); border:1px solid rgba(247,193,92,0.7); box-shadow:0 6px 18px rgba(0,0,0,0.4); border-radius:9px; padding:8px 14px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:15px; line-height:1.25; color:#fff;">Si el ganador no está presente en sala al cierre, el premio se acumula para la próxima semana</div>
         </div>
       </div>
 
