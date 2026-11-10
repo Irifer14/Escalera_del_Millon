@@ -32,7 +32,7 @@ const CATS = 'Oro';
 const SORTEO = '2';
 const CIERRE = '12/11/2026 19:00';
 const FECHA_INICIO = '06/11/2026';
-const PREMIOS = { 1: '$500.000', 2: '$300.000', 3: '$200.000' };
+const PREMIOS = { 1: '$1.000.000*', 2: '$600.000*', 3: '$200.000' };
 const PREMIO_TOTAL = '$1.800.000';
 const DIAS_RESTANTES = '1 DÍA';
 const HAY_POZO = '1' === '1';
@@ -87,7 +87,7 @@ function buildMockup(){
       <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:${ptsSize}px; margin-top:4px; color:${ptsColor};">${fmt(p.puntos)}</div>
       <div style="width:100%; height:${blockHeight}px; margin-top:16px; border-radius:16px 16px 0 0; background:linear-gradient(180deg,${gradTop},${gradBottom}); display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:10px; gap:1px;">
         <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:${place===1?40:32}px; color:rgba(0,0,0,0.26); line-height:1;">${place}</div>
-        <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:${place===1?28:23}px; color:rgba(0,0,0,0.82); margin-top:3px;">${PREMIOS[place]}</div>
+        <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:${Math.round((place===1?28:23) * (PREMIOS[place].length > 9 ? 0.78 : 1))}px; color:rgba(0,0,0,0.82); margin-top:3px;">${PREMIOS[place]}</div>
         <div style="font-family:'Poppins',sans-serif; font-weight:600; font-size:11px; letter-spacing:1.5px; color:rgba(0,0,0,0.5);">DE PREMIO</div>
       </div>
     </div>`;
