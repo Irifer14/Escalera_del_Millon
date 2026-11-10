@@ -35,6 +35,7 @@ const FECHA_INICIO = '06/11/2026';
 const PREMIOS = { 1: '$500.000', 2: '$300.000', 3: '$200.000' };
 const PREMIO_TOTAL = '$1.000.000';
 const DIAS_RESTANTES = '2 DÍAS';
+const ACUMULADO = '$1.000.000';
 const fmt = n => n.toLocaleString('es-AR');
 
 function rankStyle(rank){
@@ -137,6 +138,7 @@ function buildMockup(){
             <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:32px; margin-top:2px; color:#FFFFFF;">${DIAS_RESTANTES}</div>
           </div>
         </div>
+        ${ACUMULADO ? `<div style="width:100%; display:flex; align-items:center; justify-content:center; gap:16px; background:linear-gradient(160deg, rgba(35,10,62,0.85), rgba(20,4,40,0.6)); border:1px solid rgba(247,193,92,0.85); box-shadow:0 8px 22px rgba(0,0,0,0.4); border-radius:14px; padding:8px 18px;"><div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; letter-spacing:2px; color:#FFC98A;">+ ACUMULADO SEMANA ANTERIOR</div><div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:30px; background:linear-gradient(180deg,#FFF6D6 0%, #F7C15C 44%, #C9861A 60%, #F7C15C 80%, #FFE9B8 100%); -webkit-background-clip:text; background-clip:text; color:transparent;">${ACUMULADO}</div></div>` : ''}
         <div style="width:100%; text-align:center; background:linear-gradient(90deg,#6A2CA8,#8B3FD0); border:1px solid rgba(247,193,92,0.7); box-shadow:0 6px 18px rgba(0,0,0,0.4); border-radius:9px; padding:9px 22px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; line-height:1.25; letter-spacing:.4px; color:#fff;">Si el ganador no está presente en sala al cierre, el premio se acumula para la próxima semana</div>
         </div>
       </div>
