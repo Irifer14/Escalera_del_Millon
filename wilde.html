@@ -34,7 +34,7 @@ const CIERRE = '12/11/2026 19:00';
 const FECHA_INICIO = '06/11/2026';
 const PREMIOS = { 1: '$1.000.000*', 2: '$600.000*', 3: '$200.000' };
 const PREMIO_TOTAL = '$1.800.000';
-const DIAS_RESTANTES = '1 HORA';
+const DIAS_RESTANTES = 'FINALIZADO';
 const HAY_POZO = '1' === '1';
 const fmt = n => n.toLocaleString('es-AR');
 
@@ -175,6 +175,34 @@ function buildMockup(){
 document.getElementById('mockup').innerHTML = buildMockup();
 fitStage();
 window.addEventListener('resize', fitStage);
+</script>
+<script>
+(function(){
+  var W = [{"p":1,"n":"IRMA","s":"4.351.750","d":"717","pts":"26.373"},{"p":2,"n":"ZAIRA","s":"22.102.752","d":"971","pts":"25.440"},{"p":3,"n":"CRISTIAN ANDRES","s":"13.984.752","d":"410","pts":"16.078"}];
+  var med=['linear-gradient(180deg,#FFE9B8,#C9861A)','linear-gradient(180deg,#E7EEF5,#AEBEC9)','linear-gradient(180deg,#E7A468,#A85A24)'];
+  var medTx=['#3A2400','#26333C','#3A1E00'];
+  var cards=W.map(function(w,i){
+    var big=(i===0);
+    return '<div style="flex:1;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:2px solid rgba(247,193,92,'+(big?'0.95':'0.45')+');border-radius:18px;padding:'+(big?'30px 22px':'24px 18px')+';'+(big?'transform:translateY(-10px);box-shadow:0 14px 40px rgba(247,193,92,.18);':'')+'">'
+      +(big?'<svg width="46" height="34" viewBox="0 0 40 30" style="display:block;margin:0 auto 4px;"><path d="M2 26 L6 8 L14 18 L20 4 L26 18 L34 8 L38 26 Z" fill="#F7C15C"/></svg>':'')
+      +'<div style="width:54px;height:54px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Montserrat,sans-serif;font-weight:900;font-size:25px;color:'+medTx[i]+';background:'+med[i]+';border:2px solid rgba(255,255,255,.6);">'+w.p+'</div>'
+      +'<div style="margin-top:14px;font-family:Montserrat,sans-serif;font-weight:900;font-size:'+(big?'32':'27')+'px;color:#fff;line-height:1.12;">'+w.n+'</div>'
+      +'<div style="margin-top:8px;font-family:Poppins,sans-serif;font-weight:700;font-size:19px;color:#FFFFFF;">Socio '+w.s+'</div>'
+      +'<div style="margin-top:2px;font-family:Poppins,sans-serif;font-weight:600;font-size:15px;color:#FFD98A;">DNI …'+w.d+'</div>'
+      +'<div style="margin-top:10px;font-family:Montserrat,sans-serif;font-weight:900;font-size:'+(big?'30':'25')+'px;background:linear-gradient(180deg,#FFF6D6,#F7C15C 45%,#C9861A 62%,#FFE9B8);-webkit-background-clip:text;background-clip:text;color:transparent;">'+w.pts+' pts</div>'
+      +'</div>';
+  }).join('');
+  var ov=document.createElement('div');
+  ov.style.cssText='position:absolute;inset:0;background:rgba(8,2,20,0.78);display:flex;align-items:center;justify-content:center;z-index:60;';
+  ov.innerHTML='<div style="width:1380px;background:linear-gradient(160deg,#2a0a50,#160430);border:3px solid #F7C15C;border-radius:26px;padding:38px 48px;box-shadow:0 24px 90px rgba(0,0,0,.7);text-align:center;">'
+    +'<div style="font-family:Montserrat,sans-serif;font-weight:900;font-size:24px;letter-spacing:7px;color:#F7C15C;">GANADORES</div>'
+    +'<div style="font-family:Montserrat,sans-serif;font-weight:900;font-size:54px;line-height:1;background:linear-gradient(180deg,#FFF6D6,#F7C15C 45%,#C9861A 62%,#FFE9B8);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 rgba(110,60,0,.5));">ESCALERA DEL MILLÓN</div>'
+    +'<div style="font-size:18px;color:#C9B3E8;margin-top:6px;font-family:Poppins,sans-serif;">Sala Wilde · Sorteo 2 de 4 · Resultado final</div>'
+    +'<div style="display:flex;gap:22px;margin-top:30px;align-items:stretch;">'+cards+'</div>'
+    +'<div style="display:inline-block;margin-top:26px;background:linear-gradient(90deg,#6A2CA8,#8B3FD0);border:1px solid rgba(247,193,92,.7);border-radius:9px;padding:9px 22px;font-family:Montserrat,sans-serif;font-weight:800;font-size:20px;letter-spacing:.4px;color:#fff;">Si el ganador no está presente en sala al cierre, el premio se acumula para la próxima semana</div>'
+    +'</div>';
+  (document.getElementById('mockup')||document.body).appendChild(ov);
+})();
 </script>
 </body>
 </html>
