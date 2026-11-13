@@ -199,11 +199,13 @@ function cierreOverlay(){
     + '<div style="margin-top:22px;font-family:Poppins,sans-serif;font-weight:600;font-size:28px;color:#EFE6FA;">Calculando ganadores…</div></div>';
   document.getElementById('mockup').appendChild(ov);
 }
-setInterval(function(){
+function tickCd(){
   const el = document.getElementById('cdVal');
   if (el) { const t = cdText(); if (el.textContent !== t) el.textContent = t; }
   if (!FINAL && Date.now() >= CIERRE_MS) cierreOverlay();
-}, 1000);
+}
+tickCd();
+setInterval(tickCd, 1000);
 // Refresco propio con cache-buster (el meta refresh puede servir una copia vieja del CDN/navegador).
 setTimeout(function(){ location.replace(location.pathname + '?cb=' + Date.now()); }, 180000);
 // Pasado el cierre sin version final: consulta cada 10 s si ya se publico y recarga apenas aparece.
