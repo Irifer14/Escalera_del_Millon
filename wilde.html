@@ -6,6 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<meta name="escalera-final" content="0">
 <title>Escalera del Millon - 2026/11 - Wilde</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -36,6 +37,8 @@ const PREMIOS = { 1: '$500.000', 2: '$300.000', 3: '$200.000' };
 const PREMIO_TOTAL = '$1.000.000';
 const DIAS_RESTANTES = '6 DÍAS';
 const HAY_POZO = '0' === '1';
+const FINAL = '0' === '1';                      // esta version ya trae los ganadores
+const CIERRE_MS = new Date('2026-11-19T19:00:00-03:00').getTime();  // instante exacto del cierre (hora Argentina)
 const fmt = n => n.toLocaleString('es-AR');
 
 function rankStyle(rank){
@@ -135,7 +138,7 @@ function buildMockup(){
           </div>
           <div style="background:linear-gradient(160deg, rgba(35,10,62,0.85), rgba(20,4,40,0.6)); border:1px solid rgba(180,140,230,0.5); box-shadow:0 8px 22px rgba(0,0,0,0.4); border-radius:18px; padding:13px 24px; min-width:196px; text-align:center;">
             <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px; letter-spacing:2px; color:#CBA9F0;">FINALIZA</div>
-            <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:32px; margin-top:2px; color:#FFFFFF;">${DIAS_RESTANTES}</div>
+            <div style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:32px; margin-top:2px; color:#FFFFFF;"><span id="cdVal">${DIAS_RESTANTES}</span></div>
           </div>
         </div>
         ${HAY_POZO ? `<div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:16px; letter-spacing:.5px; color:#FFD98A;">* Pozo acumulado</div>` : ''}
@@ -175,6 +178,43 @@ function buildMockup(){
 document.getElementById('mockup').innerHTML = buildMockup();
 fitStage();
 window.addEventListener('resize', fitStage);
+
+// Cuenta regresiva en vivo (corre en la pantalla, no depende de la regeneracion): dias -> horas -> minutos (ultima hora) -> segundos (ultimo minuto)
+function cdText(){
+  if (FINAL) return 'FINALIZADO';
+  const ms = CIERRE_MS - Date.now();
+  if (ms <= 0) return 'CERRADO';
+  if (ms < 60000) return Math.ceil(ms / 1000) + ' SEG';
+  if (ms < 3600000) return Math.ceil(ms / 60000) + ' MIN';
+  if (ms < 86400000) { const h = Math.ceil(ms / 3600000); return h + (h === 1 ? ' HORA' : ' HORAS'); }
+  const d = Math.floor(ms / 86400000); return d + (d === 1 ? ' DÍA' : ' DÍAS');
+}
+function cierreOverlay(){
+  if (document.getElementById('closingOv')) return;
+  const ov = document.createElement('div');
+  ov.id = 'closingOv';
+  ov.style.cssText = 'position:absolute;inset:0;background:rgba(8,2,20,0.82);display:flex;align-items:center;justify-content:center;z-index:70;text-align:center;';
+  ov.innerHTML = '<div><div style="font-family:Montserrat,sans-serif;font-weight:900;font-size:22px;letter-spacing:7px;color:#F7C15C;">SORTEO CERRADO</div>'
+    + '<div style="margin-top:14px;font-family:Montserrat,sans-serif;font-weight:900;font-size:70px;line-height:1;background:linear-gradient(180deg,#FFF6D6,#F7C15C 45%,#C9861A 62%,#FFE9B8);-webkit-background-clip:text;background-clip:text;color:transparent;">ESCALERA DEL MILLÓN</div>'
+    + '<div style="margin-top:22px;font-family:Poppins,sans-serif;font-weight:600;font-size:28px;color:#EFE6FA;">Calculando ganadores…</div></div>';
+  document.getElementById('mockup').appendChild(ov);
+}
+setInterval(function(){
+  const el = document.getElementById('cdVal');
+  if (el) { const t = cdText(); if (el.textContent !== t) el.textContent = t; }
+  if (!FINAL && Date.now() >= CIERRE_MS) cierreOverlay();
+}, 1000);
+// Refresco propio con cache-buster (el meta refresh puede servir una copia vieja del CDN/navegador).
+setTimeout(function(){ location.replace(location.pathname + '?cb=' + Date.now()); }, 180000);
+// Pasado el cierre sin version final: consulta cada 10 s si ya se publico y recarga apenas aparece.
+if (!FINAL) setInterval(async function(){
+  if (Date.now() < CIERRE_MS) return;
+  try {
+    const r = await fetch(location.pathname + '?cb=' + Date.now(), { cache: 'no-store' });
+    const t = await r.text();
+    if (t.indexOf('name="escalera-final" content="1"') > -1) location.replace(location.pathname + '?cb=' + Date.now());
+  } catch (e) {}
+}, 10000);
 </script>
 </body>
 </html>
